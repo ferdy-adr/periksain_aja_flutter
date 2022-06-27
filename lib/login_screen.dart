@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+// ignore: depend_on_referenced_packages
+import 'package:flutter_svg/flutter_svg.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -22,7 +24,13 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               child: Column(
                 children: [
-                  Image.asset('assets/images/login-illustration.png'),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 24.0),
+                    child: SvgPicture.asset(
+                      'assets/images/login-illustration.svg',
+                      height: 160,
+                    ),
+                  ),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 16.0),
                     child: TextField(
@@ -33,6 +41,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         labelText: 'Your ID',
                         floatingLabelBehavior: FloatingLabelBehavior.always,
                         hintText: 'Enter your ID',
+                        hintStyle: const TextStyle(fontSize: 14.0),
+                        isDense: true,
+                        contentPadding: const EdgeInsets.all(16.0),
                       ),
                     ),
                   ),
@@ -47,6 +58,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         labelText: 'Password',
                         floatingLabelBehavior: FloatingLabelBehavior.always,
                         hintText: 'Enter your password',
+                        hintStyle: const TextStyle(fontSize: 14.0),
+                        isDense: true,
+                        contentPadding: const EdgeInsets.all(16.0),
                       ),
                     ),
                   ),
@@ -67,7 +81,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     ],
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    padding: const EdgeInsets.only(
+                      top: 0.0,
+                      bottom: 8.0,
+                    ),
                     child: Row(
                       children: [
                         Expanded(
@@ -88,17 +105,20 @@ class _LoginScreenState extends State<LoginScreen> {
                       ],
                     ),
                   ),
-                  const SizedBox(height: 25.0),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text('Don\'t have an account?'),
+                      const Text(
+                        'Don\'t have an account?',
+                        style: TextStyle(fontSize: 12.0),
+                      ),
                       TextButton(
                         onPressed: () {},
                         child: const Text(
                           'Create account!',
                           style: TextStyle(
                             decoration: TextDecoration.underline,
+                            fontSize: 12.0,
                           ),
                         ),
                       ),
@@ -106,7 +126,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   const Padding(
                     padding: EdgeInsets.only(
-                      top: 8.0,
+                      top: 0.0,
                       bottom: 16.0,
                     ),
                     child: Text(
