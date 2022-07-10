@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:periksain_aja_flutter/home_screen.dart';
 import 'package:periksain_aja_flutter/login_screen.dart';
 
 void main() {
