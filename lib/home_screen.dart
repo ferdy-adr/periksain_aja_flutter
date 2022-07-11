@@ -10,7 +10,10 @@ class HomeScreen extends StatelessWidget {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            padding: const EdgeInsets.symmetric(
+              vertical: 8.0,
+              horizontal: 20.0,
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -54,12 +57,18 @@ class HomeScreen extends StatelessWidget {
                     children: [
                       Expanded(
                         child: SizedBox(
-                          height: 150,
+                          height: 160,
                           child: Card(
+                            elevation: 0.0,
+                            clipBehavior: Clip.antiAliasWithSaveLayer,
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(25.0),
+                              borderRadius: BorderRadius.circular(30.0),
                             ),
                             color: Colors.grey,
+                            child: Image.asset(
+                              'assets/images/banner-1.jpg',
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         ),
                       ),
@@ -67,7 +76,10 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  padding: const EdgeInsets.only(
+                    top: 10.0,
+                    bottom: 16.0,
+                  ),
                   child: Row(
                     children: const [
                       Text(
@@ -104,7 +116,7 @@ class HomeScreen extends StatelessWidget {
                   ],
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 20.0),
+                  padding: const EdgeInsets.only(top: 28.0),
                   child: Row(
                     children: const [
                       Text(
@@ -167,7 +179,7 @@ class BoxMenu extends StatelessWidget {
         width: 100,
         child: Card(
           elevation: 0.0,
-          color: Colors.blueGrey[200],
+          color: Colors.blueGrey[50],
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10.0),
           ),
@@ -207,6 +219,7 @@ class AppointmentBox extends StatelessWidget {
       child: SizedBox(
         width: 280,
         child: Card(
+          elevation: 0.0,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(25.0),
           ),
