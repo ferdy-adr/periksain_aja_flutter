@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  final String userName;
+
+  const HomeScreen({Key? key, required this.userName}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +19,7 @@ class HomeScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 16.0),
+                  padding: const EdgeInsets.only(top: 16.0, bottom: 8.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -39,17 +40,20 @@ class HomeScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: const [
-                    Text(
-                      'Nama User',
-                      style: TextStyle(
-                        fontSize: 24.0,
-                        fontWeight: FontWeight.w600,
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        userName,
+                        style: const TextStyle(
+                          fontSize: 24.0,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 12.0),
@@ -97,20 +101,46 @@ class HomeScreen extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: const [
-                        BoxMenu(title: 'Appointment Schedule'),
-                        BoxMenu(title: 'My Healt'),
-                        BoxMenu(title: 'History'),
+                        Expanded(
+                          child: BoxMenu(
+                              title: 'Appointment Schedule',
+                              icon: 'assets/icons/calendar-plus.png'),
+                        ),
+                        SizedBox(width: 10.0),
+                        Expanded(
+                          child: BoxMenu(
+                              title: 'My Healt',
+                              icon: 'assets/icons/person.png'),
+                        ),
+                        SizedBox(width: 10.0),
+                        Expanded(
+                          child: BoxMenu(
+                              title: 'History',
+                              icon: 'assets/icons/order-history.png'),
+                        ),
                       ],
                     ),
-                    const SizedBox(
-                      height: 10.0,
-                    ),
+                    const SizedBox(height: 10.0),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: const [
-                        BoxMenu(title: 'Pharmacy'),
-                        BoxMenu(title: 'Notification'),
-                        BoxMenu(title: 'Message'),
+                        Expanded(
+                          child: BoxMenu(
+                              title: 'Pharmacy',
+                              icon: 'assets/icons/pills.png'),
+                        ),
+                        SizedBox(width: 10.0),
+                        Expanded(
+                          child: BoxMenu(
+                              title: 'Notification',
+                              icon: 'assets/icons/alarm.png'),
+                        ),
+                        SizedBox(width: 10.0),
+                        Expanded(
+                          child: BoxMenu(
+                              title: 'Message',
+                              icon: 'assets/icons/open-message.png'),
+                        ),
                       ],
                     ),
                   ],
@@ -137,7 +167,7 @@ class HomeScreen extends StatelessWidget {
                         height: 100,
                         child: ListView(
                           scrollDirection: Axis.horizontal,
-                          children: [
+                          children: const [
                             AppointmentBox(
                                 date: '19',
                                 time: '09:13 AM',
@@ -167,16 +197,17 @@ class HomeScreen extends StatelessWidget {
 
 class BoxMenu extends StatelessWidget {
   final String title;
+  final String icon;
 
-  const BoxMenu({Key? key, required this.title}) : super(key: key);
+  const BoxMenu({Key? key, required this.title, required this.icon})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {},
       child: SizedBox(
-        height: 110,
-        width: 100,
+        height: 115,
         child: Card(
           elevation: 0.0,
           color: Colors.blueGrey[50],
@@ -184,14 +215,24 @@ class BoxMenu extends StatelessWidget {
             borderRadius: BorderRadius.circular(10.0),
           ),
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 2.0),
             child: Column(
               children: [
-                const Icon(Icons.calendar_month_rounded, size: 40),
-                const SizedBox(height: 7.0),
+                Image.asset(
+                  icon,
+                  height: 50.0,
+                  width: 50.0,
+                ),
+                const SizedBox(height: 10.0),
                 Text(
                   title,
-                  style: const TextStyle(fontSize: 12.0),
+                  maxLines: 2,
+                  style: TextStyle(
+                    color: Colors.grey[900],
+                    fontSize: 13.0,
+                    fontWeight: FontWeight.w400,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                   textAlign: TextAlign.center,
                 ),
               ],
@@ -240,7 +281,7 @@ class AppointmentBox extends StatelessWidget {
                     child: Center(
                       child: Text(
                         date,
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.white,
                           fontSize: 20.0,
                           fontWeight: FontWeight.w500,
@@ -249,26 +290,26 @@ class AppointmentBox extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(width: 8.0),
+                const SizedBox(width: 8.0),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       time,
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.white,
                         fontSize: 14.0,
                         // fontWeight: FontWeight.w500,
                       ),
                     ),
-                    SizedBox(height: 4.0),
+                    const SizedBox(height: 4.0),
                     SizedBox(
                       width: 145,
                       child: Text(
                         doctorName,
                         maxLines: 3,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 12.0,
                           color: Colors.white,
                           overflow: TextOverflow.ellipsis,
@@ -284,7 +325,7 @@ class AppointmentBox extends StatelessWidget {
                     children: [
                       InkWell(
                         onTap: () {},
-                        child: Icon(
+                        child: const Icon(
                           Icons.more_horiz_rounded,
                           color: Colors.white70,
                         ),

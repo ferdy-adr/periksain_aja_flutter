@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 // ignore: depend_on_referenced_packages
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:periksain_aja_flutter/home_screen.dart';
+import 'package:periksain_aja_flutter/data/user_data.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -11,6 +12,10 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  String? _tempUsername;
+  String? _tempPassword;
+  bool _isAuth = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,6 +40,20 @@ class _LoginScreenState extends State<LoginScreen> {
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 16.0),
                     child: TextField(
+                      onChanged: (inputUsername) {
+                        for (var i = 0; i < userAccountList.length; i++) {
+                          if (inputUsername == userAccountList[i][0]) {
+                            setState(() {
+                              _tempUsername = inputUsername;
+                            });
+                            break;
+                          } else {
+                            setState(() {
+                              _tempUsername = null;
+                            });
+                          }
+                        }
+                      },
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(16.0),
@@ -52,6 +71,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     padding: const EdgeInsets.only(top: 8.0),
                     child: TextField(
                       obscureText: true,
+                      onChanged: (inputPassword) {
+                        setState(() {
+                          _tempPassword = inputPassword;
+                        });
+                      },
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(16.0),
@@ -93,12 +117,51 @@ class _LoginScreenState extends State<LoginScreen> {
                             height: 50,
                             child: ElevatedButton(
                               onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => const HomeScreen(),
-                                  ),
-                                );
+                                // Authentication Logic
+                                for (var i = 0;
+                                    i < userAccountList.length;
+                                    i++) {
+                                  if (_tempUsername == userAccountList[i][0] &&
+                                      _tempPassword == userAccountList[i][1]) {
+                                    setState(() {
+                                      _isAuth = true;
+                                    });
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => HomeScreen(
+                                            userName: userAccountList[i][2]),
+                                      ),
+                                    );
+                                    break;
+                                  } else {
+                                    setState(() {
+                                      _isAuth = false;
+                                    });
+                                  }
+                                }
+
+                                if (_isAuth != true) {
+                                  showDialog<String>(
+                                    context: context,
+                                    builder: (BuildContext context) =>
+                                        AlertDialog(
+                                      title: const Text('Alert!'),
+                                      content: Text(
+                                        (_tempUsername == null)
+                                            ? 'ID yang Anda masukkan salah'
+                                            : 'Password yang Anda masukkan salah',
+                                      ),
+                                      actions: <Widget>[
+                                        TextButton(
+                                          onPressed: () =>
+                                              Navigator.pop(context, 'OK'),
+                                          child: const Text('OK'),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                }
                               },
                               style: ElevatedButton.styleFrom(
                                 primary: Colors.lightBlue[800],
