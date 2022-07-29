@@ -130,7 +130,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) => HomeScreen(
-                                            userName: userAccountList[i][2]),
+                                          userId: userAccountList[i][0],
+                                          userName: userAccountList[i][2],
+                                          appointment: [userAccountList[i][3]],
+                                        ),
                                       ),
                                     );
                                     break;

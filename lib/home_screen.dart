@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
+  final String userId;
   final String userName;
+  final List<dynamic> appointment;
 
-  const HomeScreen({Key? key, required this.userName}) : super(key: key);
+  const HomeScreen(
+      {Key? key,
+      required this.userId,
+      required this.userName,
+      required this.appointment})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -167,19 +174,37 @@ class HomeScreen extends StatelessWidget {
                         height: 100,
                         child: ListView(
                           scrollDirection: Axis.horizontal,
-                          children: const [
-                            AppointmentBox(
-                                date: '19',
-                                time: '09:13 AM',
-                                doctorName: 'dr. Sarah Widiawati, Sp.KG'),
-                            AppointmentBox(
-                                date: '23',
-                                time: '09:13 AM',
-                                doctorName: 'dr. Sarah Widiawati, Sp.KG'),
-                            AppointmentBox(
-                                date: '29',
-                                time: '09:13 AM',
-                                doctorName: 'dr. Sarah Widiawati, Sp.KG'),
+                          children: [
+                            for (int i = 0; i < appointment[0].length; i++)
+                              AppointmentBox(
+                                date: appointment[0][i][0],
+                                time: appointment[0][i][1],
+                                doctorName: appointment[0][i][2],
+                                cardColor: (i == 0 || i % 2 == 0)
+                                    ? Colors.lightBlue[900]
+                                    : Colors.orange[100],
+                                dateBoxColor: (i == 0 || i % 2 == 0)
+                                    ? Colors.blue[800]
+                                    : Colors.yellow[800],
+                                fontColor: (i == 0 || i % 2 == 0)
+                                    ? Colors.white
+                                    : Colors.black,
+                                iconColor: (i == 0 || i % 2 == 0)
+                                    ? Colors.white70
+                                    : Colors.black45,
+                              ),
+                            // AppointmentBox(
+                            //     date: '19',
+                            //     time: '09:13 AM',
+                            //     doctorName: 'dr. Sarah Widiawati, Sp.KG'),
+                            // AppointmentBox(
+                            //     date: '23',
+                            //     time: '09:13 AM',
+                            //     doctorName: 'dr. Sarah Widiawati, Sp.KG'),
+                            // AppointmentBox(
+                            //     date: '29',
+                            //     time: '09:13 AM',
+                            //     doctorName: 'dr. Sarah Widiawati, Sp.KG'),
                           ],
                         ),
                       ),
@@ -246,11 +271,16 @@ class BoxMenu extends StatelessWidget {
 
 class AppointmentBox extends StatelessWidget {
   final String date, time, doctorName;
+  final Color? cardColor, dateBoxColor, fontColor, iconColor;
   const AppointmentBox(
       {Key? key,
       required this.date,
       required this.time,
-      required this.doctorName})
+      required this.doctorName,
+      required this.cardColor,
+      required this.dateBoxColor,
+      required this.fontColor,
+      required this.iconColor})
       : super(key: key);
 
   @override
@@ -264,7 +294,7 @@ class AppointmentBox extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(25.0),
           ),
-          color: Colors.lightBlue[900],
+          color: cardColor,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 6.0),
             child: Row(
@@ -277,7 +307,7 @@ class AppointmentBox extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(25.0),
                     ),
-                    color: Colors.blue[800],
+                    color: dateBoxColor,
                     child: Center(
                       child: Text(
                         date,
@@ -297,8 +327,8 @@ class AppointmentBox extends StatelessWidget {
                   children: [
                     Text(
                       time,
-                      style: const TextStyle(
-                        color: Colors.white,
+                      style: TextStyle(
+                        color: fontColor,
                         fontSize: 14.0,
                         // fontWeight: FontWeight.w500,
                       ),
@@ -309,9 +339,9 @@ class AppointmentBox extends StatelessWidget {
                       child: Text(
                         doctorName,
                         maxLines: 3,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 12.0,
-                          color: Colors.white,
+                          color: fontColor,
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
@@ -325,9 +355,9 @@ class AppointmentBox extends StatelessWidget {
                     children: [
                       InkWell(
                         onTap: () {},
-                        child: const Icon(
+                        child: Icon(
                           Icons.more_horiz_rounded,
-                          color: Colors.white70,
+                          color: iconColor,
                         ),
                       ),
                     ],
