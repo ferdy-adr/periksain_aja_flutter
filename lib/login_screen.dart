@@ -18,15 +18,29 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Size? screenSize = MediaQuery.of(context).size;
+
     return Scaffold(
       resizeToAvoidBottomInset: true,
       body: SafeArea(
         child: ListView(
           children: [
             Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 32.0,
-                vertical: 16.0,
+              padding: EdgeInsets.symmetric(
+                horizontal: (screenSize.width <= 600)
+                    ? 32.0
+                    : (screenSize.width <= 800)
+                        ? 80.0
+                        : (screenSize.width <= 1100)
+                            ? 160.0
+                            : (screenSize.width <= 1300)
+                                ? 250.0
+                                : 400.0,
+                vertical: (screenSize.height <= 700)
+                    ? 30.0
+                    : (screenSize.height <= 800)
+                        ? 50.0
+                        : 80.0,
               ),
               child: Column(
                 children: [
@@ -152,8 +166,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                       title: const Text('Alert!'),
                                       content: Text(
                                         (_tempUsername == null)
-                                            ? 'ID yang Anda masukkan salah'
-                                            : 'Password yang Anda masukkan salah',
+                                            ? 'Your ID is incorrect'
+                                            : 'Your Password is incorrect',
                                       ),
                                       actions: <Widget>[
                                         TextButton(
