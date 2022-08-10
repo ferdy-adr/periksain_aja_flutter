@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.periksain_aja_flutter">
    <application
-        android:label="periksain_aja_flutter"
+        android:label="PeriksainAja"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
