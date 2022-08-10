@@ -14,13 +14,19 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size? screenSize = MediaQuery.of(context).size;
+
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
           child: Container(
-            padding: const EdgeInsets.symmetric(
+            padding: EdgeInsets.symmetric(
               vertical: 8.0,
-              horizontal: 20.0,
+              horizontal: (screenSize.width <= 750)
+                  ? 20.0
+                  : (screenSize.width <= 1150)
+                      ? 40.0
+                      : 80.0,
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -65,23 +71,9 @@ class HomeScreen extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 12.0),
                   child: Row(
-                    children: [
+                    children: const [
                       Expanded(
-                        child: SizedBox(
-                          height: 160,
-                          child: Card(
-                            elevation: 0.0,
-                            clipBehavior: Clip.antiAliasWithSaveLayer,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30.0),
-                            ),
-                            color: Colors.grey,
-                            child: Image.asset(
-                              'assets/images/banner-1.jpg',
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
+                        child: BannerCard(),
                       ),
                     ],
                   ),
@@ -214,6 +206,36 @@ class HomeScreen extends StatelessWidget {
               ],
             ),
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class BannerCard extends StatelessWidget {
+  const BannerCard({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    Size? screenSize = MediaQuery.of(context).size;
+    return SizedBox(
+      height: (screenSize.width <= 750)
+          ? 160.0
+          : (screenSize.width <= 900)
+              ? 200.0
+              : (screenSize.width <= 1150)
+                  ? 240.0
+                  : 320.0,
+      child: Card(
+        elevation: 0.0,
+        clipBehavior: Clip.antiAliasWithSaveLayer,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30.0),
+        ),
+        color: Colors.grey,
+        child: Image.asset(
+          'assets/images/banner-1.jpg',
+          fit: BoxFit.cover,
         ),
       ),
     );
