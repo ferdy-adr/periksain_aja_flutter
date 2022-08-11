@@ -9,7 +9,7 @@ List<dynamic> userAccountList = [
       [
         '8', // Date
         '04.25 PM', // Time
-        'dr. Darmaji Ardianto, Sp.OG', // Doctor Name
+        'dr. Darmaji Ardianto, Sp.PD', // Doctor Name
       ],
       [
         '16',
@@ -19,7 +19,7 @@ List<dynamic> userAccountList = [
       [
         '22',
         '12.10 PM',
-        'dr. Bambang Mahendra, Sp.OG',
+        'dr. Bambang Mahendra, Sp.PD',
       ],
       [
         '28',
